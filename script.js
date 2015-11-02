@@ -1,9 +1,7 @@
 //Fix the fourth card to fifth card. it is affecting the war
 
 $(document).ready(function() {
-	//what does this do?
-	//this takes the a number, 1-13 only, and coverts it from a value into a string so it can be displayed
-	//if the value is above 13 what would happen?
+	
 	var convert_value_to_string = function (value) {
 		if (value > 10) {
 			switch (value) {
@@ -24,10 +22,6 @@ $(document).ready(function() {
 		return value.toString();
 	}
 
-	//NEED TO FIX IMAGE SO THAT THE CARDS DON'T SHIFT
-	//what does this do?
-	//this is a loop within a a loop that will add one of each number (1-13)
-	// to the deck array as an object with a number value and suit string
 	var deck = [];
 	var newDeck = function(deck) {
 		var suits = ['hearts', 'diamonds', 'spades', 'clubs'];
@@ -40,16 +34,8 @@ $(document).ready(function() {
 			}
 		}
 	};
-
 	newDeck(deck);
 
-	//what does this do?
-	//I assume that if you just put a variable as the controller of the while loop, it will stop when it reaches 0
-	// but I'm not sure
-	//I get it, so this takes in an array (our being 52 entries) that lowers the array length by one by deleting out the
-	// array item it adds to the new temp array. It takes the array length, multiplies it by a random number between
-	// 0 and 1 and then rounds down to the nearest integer. That integer is used to take a card from the old arranged
-	// arrange array and put it into a new order
 	var shuffle = function (array) {
 		var copy = [];
 		var n = array.length;
@@ -65,8 +51,6 @@ $(document).ready(function() {
 		return copy;
 	}
 
-	// write a function called deal that will evenly divide the deck up between the two players
-	//done
 	function deal(array) {
 		var n = array.length;
 		while (n > 0) {
@@ -77,14 +61,11 @@ $(document).ready(function() {
 		}
 	};
 
-	//Now call the shuffle function and save the result of what shuffle returns into your deck variable
-	//Done
 	var cards_player_1 = [];
 	var cards_player_2 = [];
 	deck = shuffle(deck);
 	deal(deck);
 
-	//create a function (algorithm) called "war" that takes two cards as parameters, compares them and returns a winner. A tie should return false.
 	var war = function (card1, card2) {
 		if (card1 > card2) {
 			return "player1"
@@ -94,8 +75,11 @@ $(document).ready(function() {
 			return false
 		}
 	};
+    
 	var advance = function () {
+        
 		//take the top two cards and display them
+        
 		if (cards_player_1.length) {
 			var card_1 = cards_player_1[0];
 			var card_2 = cards_player_2[0];
@@ -138,7 +122,6 @@ $(document).ready(function() {
 		}
 	};
 
-	//create a play function
 		//compare the cards
 		//give the winner both cards (at end of deck)
 	var play = function() {
@@ -166,10 +149,7 @@ $(document).ready(function() {
 		$('.potCard').css('background-position', '-3536');
 	};
 
-	//TEST SECTION!!!!!!
-	//cards_player_1 = [{number: 2, suit: 'diamond', cardImage: (-3536 + 68)}, {number: 3, suit: 'diamond', cardImage: -3536 + 136}, {number: 4, suit: 'diamond', cardImage: -3536+204},{number: 5, suit: 'diamond', cardImage: -3536+272},{number: 6, suit: 'diamond', cardImage: -3536+340},{number: 7, suit: 'diamond', cardImage: -3536+408}];
-	//cards_player_2 = [{number: 2, suit: 'diamond', cardImage: (-3536 + 68)}, {number: 3, suit: 'diamond', cardImage: -3536 + 136}, {number: 4, suit: 'diamond', cardImage: -3536+204},{number: 5, suit: 'diamond', cardImage: -3536+272},{number: 6, suit: 'diamond', cardImage: -3536+340},{number: 7, suit: 'diamond', cardImage: -3536+408}];
-
+	
 	//this function (defined below) will continue to the next turn
 	$(".btn").click(function() {
 		$('.potCard').css('visibility', 'visible');

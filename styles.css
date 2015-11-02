@@ -1,150 +1,242 @@
 @font-face {
-	font-family: p22Vincent;
-	src: url(fonts/P22-Vincent-Regular.otf);
-}
-@charset "UTF-8";
-
-html, body, div, ul, li {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-	background-image: url(images/felt2.jpg);
+    font-family: p22Vincent;
+    src: url(fonts/P22-Vincent-Regular.otf);
 }
 
-img {
-	padding: 0;
-	margin: 0;
-	border: none;
-	outline: none;
-
+html,
+body,
+div,
+ul,
+li {
+    padding: 0;
+    margin: 0;
 }
+
 body {
-	font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
-	line-height: 1.4em;
-	color: #4d4d4d;
-	color: rgb(77, 77, 77);
-	font-style: normal;
-	font-variant: normal;
-	font-weight: normal;
-	-webkit-font-smoothing: antialiased;
-	font-smoothing: antialiased;
-	padding-top: 50px;
-	border-style: solid;
-	border-width: 15px;
-	-moz-border-image: url(images/borderV.jpg) 15 repeat;
-	-webkit-border-image: url(images/borderV.jpg) 15 repeat;
-	-o-border-image: url(images/borderV.jpg) 15 repeat;
-	border-image: url(images/borderV.jpg) 15 repeat;
+    font: 14px 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: #4d4d4d;
+    color: rgb(77, 77, 77);
+    -webkit-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+    border-style: solid;
+    border-width: 15px;
+    -moz-border-image: url(images/borderV.jpg) 15 repeat;
+    -webkit-border-image: url(images/borderV.jpg) 15 repeat;
+    -o-border-image: url(images/borderV.jpg) 15 repeat;
+    border-image: url(images/borderV.jpg) 15 repeat;
+    background-image: url(images/felt3.jpg);
 }
 
-h1 {
-	font: 30px p22Vincent;
-	width: 100%;
-	font-size: 70px;
-	font-weight: bold;
-	text-align: center;
-	color: rgba(255, 255, 255, 1);
-	text-shadow: -1px -1px rgba(0, 0, 0, 0.2);
+h1.playerText,
+h1.pot {
+    font: 15px p22Vincent;
+    font-size: 4em;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
 }
+
 h2 {
-	color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
 }
 
 h4 {
-	color: rgba(255, 255, 255, 1);
+    color: rgba(255, 255, 255, 1);
 }
 
 .card-block {
-	width: 40%;
-	margin: 0 auto;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.opp-card-block,
+.pot-block,
+.my-card-block {
+    position: relative;
+    width: 293px;
+    margin: 0 auto;
+    height: 193px;
+    text-align: center;
+}
+
+.opp-card-block {
+    height: 150px;
+}
+
+.pot-block {}
+
+.my-card-block {
+    padding-top: 30px;
+    height: 150px;
 }
 
 .opp-card-container {
-	box-shadow: 2px 10px 25px #888888;
-	display: inline-block;
-	width: 67px;
-	height: 94px;
-	background-image: url(images/CardDeck.gif);
-	background-position: -3536 0;
+   
+    box-shadow: 2px 10px 25px #888888;
+    display: inline-block;
+    width: 67px;
+    height: 94px;
+    background-image: url(images/CardDeck.gif);
+    background-position: -3536 0;
+}
+
+.opp-card1 {
+     position: absolute;
+    top: -115px;
+    left: 38px;
+}
+
+.opp-card2 {
+     position: absolute;
+    top: -115px;
+    left: 113px;
+}
+
+.opp-card3 {
+     position: absolute;
+    top: -115px;
+    left: 188px;
 }
 
 .my-card-container {
-	outline-style: none;
-	box-shadow: 2px 10px 25px #888888;
-	display: inline-block;
-	width: 67px;
-	height: 94px;
-	background-image: url(images/CardDeck.gif);
-	background-position: -3536;
+    outline-style: none;
+    box-shadow: 2px 10px 25px #888888;
+    display: inline-block;
+    width: 67px;
+    height: 94px;
+    background-image: url(images/CardDeck.gif);
+    background-position: -3536;
 }
 
-.potCard{
-	outline: 0;
-	visibility: visible;
-	display: inline-block;
-	width: 67px;
-	height: 94px;
-	box-shadow: 2px 10px 25px #888888;
-	background-image: url(images/CardDeck.gif);
-	background-position: -3536;
+.my-card1 {
+     position: absolute;
+    bottom: -155px;
+    left: 38px;
+}
 
+.my-card2 {
+     position: absolute;
+    bottom: -155px;
+    left: 113px;
+}
+
+.my-card3 {
+     position: absolute;
+    bottom: -155px;
+    left: 188px;
+}
+
+.potCard {
+    position: absolute;
+    visibility: hidden;
+    display: inline-block;
+    width: 67px;
+    height: 94px;
+    box-shadow: 2px 10px 25px #888888;
+    background-image: url(images/CardDeck.gif);
+    background-position: -3536;
+}
+
+.deck {
+    visibility: visible;
+    background-position: -3536;
+    position: absolute;
+    left: 113px;
+    top: 50px;
+}
+.oppCard {
+    visibility: visible;
+    background-position: -3536;
+    position: absolute;
+    left: 113px;
+    top: 0px;
+}
+
+.myCard {
+    visibility: visible;
+    background-position: -3536;
+    position: absolute;
+    left: 113px;
+    bottom: 0px;
 }
 .oppCard1 {
-	margin-left: 100px;
-	 background-position: -3536;
- }
-.oppCard2 {
-	background-position: -3536;
-}
-.oppCard3 {
-	background-position: -3536;
-}
-.oppCard4 {
-	background-position: -3536;
-}
-.myCard1{
-	margin-left: 216px;
-	margin-bottom: 30px;
-	background-position: -3536;
-}
-.myCard2 {
-	background-position: -3536;
-	margin-bottom: 30px;
-}
-.myCard3 {
-	background-position: -3536;
-	margin-bottom: 30px;
-}
-.myCard4 {
-	background-position: -3536;
-	margin-bottom: 30px;
+    background-position: -3536;
+    position: absolute;
+    left: 225px;
 }
 
-.card-container h2, .card-container h4 {
-	text-align: center;
+.oppCard2 {
+    background-position: -3536;
+    position: absolute;
+    left: 150px;
 }
-.card-container h2 {
-	padding-top: 38px;
-	font-size: 38px;
+
+.oppCard3 {
+    background-position: -3536;
+    position: absolute;
+    left: 75px;
 }
+
+.oppCard4 {
+    background-position: -3536;
+    position: absolute;
+    left: 0px;
+}
+
+.myCard1 {
+    background-position: -3536;
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+}
+
+.myCard2 {
+    background-position: -3536;
+    position: absolute;
+    left: 75px;
+    bottom: 0px;
+}
+
+.myCard3 {
+    background-position: -3536;
+    position: absolute;
+    left: 150px;
+    bottom: 0px;
+}
+
+.myCard4 {
+    background-position: -3536;
+    position: absolute;
+    left: 225px;
+    bottom: 0px;
+}
+
+.card-container h2,
 .card-container h4 {
-	font-size: 22px;
+    text-align: center;
+}
+
+.card-container h2 {
+    padding-top: 38px;
+    font-size: 38px;
+}
+
+.card-container h4 {
+    font-size: 22px;
 }
 
 .row-centered {
-	text-align: center;
+    text-align: center;
 }
 
-.card-count{
-	color: rgba(255, 255, 255, 1);
+.card-count {
+    color: rgba(255, 255, 255, 1);
 }
+
 .pot {
-	text-align: left;
-	display: inline;
-
+    position: absolute;
 }
 
 .btn {
-	margin: 0 auto;
-	margin-top: 25px;
+    margin: 0 auto;
 }
