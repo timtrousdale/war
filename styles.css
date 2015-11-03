@@ -83,18 +83,24 @@ h4 {
     position: absolute;
     top: -115px;
     left: 38px;
+    transition: top .2s ease-in-out 0s, left .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
+
 }
 
 .opp-card2 {
     position: absolute;
     top: -115px;
     left: 113px;
+    transition: top .2s ease-in-out 0s, left .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
+
 }
 
 .opp-card3 {
     position: absolute;
     top: -115px;
     left: 188px;
+    transition: top .2s ease-in-out 0s, left .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
+
 }
 
 .my-card-container {
@@ -107,30 +113,30 @@ h4 {
     background-position: -3536;
 }
 
-.my-card1 {
+.my-card0 {
     position: absolute;
     bottom: -155px;
     left: 38px;
     z-index: 4;
-    transition: bottom .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
+    transition: bottom .2s ease-in-out 0s, left .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
+}
+
+
+.my-card1 {
+    position: absolute;
+    bottom: -155px;
+    left: 113px;
+    z-index: 4;
+    transition: bottom .2s ease-in-out 0s, left .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
 }
 
 
 .my-card2 {
     position: absolute;
     bottom: -155px;
-    left: 113px;
-    z-index: 4;
-    transition: bottom .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
-}
-
-
-.my-card3 {
-    position: absolute;
-    bottom: -155px;
     left: 188px;
     z-index: 4;
-    transition: bottom .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
+    transition: bottom .2s ease-in-out 0s, left .2s ease-in-out 0s, box-shadow .2s ease-in-out 0s;
 }
 
 .my-card-container:hover {
@@ -150,7 +156,7 @@ h4 {
 }
 
 .deck,
-deck1 {
+.deck1 {
     display: inline-block;
     width: 67px;
     height: 94px;
@@ -161,32 +167,6 @@ deck1 {
     position: absolute;
     left: 113px;
     top: 50px;
-}
-
-.oppCard {
-    display: inline-block;
-    width: 67px;
-    height: 94px;
-    box-shadow: 2px 10px 25px #888888;
-    background-image: url(images/CardDeck.gif);
-    visibility: visible;
-    background-position: -3536;
-    position: absolute;
-    left: 113px;
-    top: 0px;
-}
-
-.myCard {
-    display: inline-block;
-    width: 67px;
-    height: 94px;
-    box-shadow: 2px 10px 25px #888888;
-    background-image: url(images/CardDeck.gif);
-    visibility: visible;
-    background-position: -3536;
-    position: absolute;
-    left: 113px;
-    bottom: 0px;
 }
 
 .oppCard1 {

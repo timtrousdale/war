@@ -25,18 +25,18 @@ $(document).ready(function () {
     var convert_value_to_string = function (value) {
         if (value > 10) {
             switch (value) {
-            case 11:
-                return 'Jack';
-                break;
-            case 12:
-                return 'Queen';
-                break;
-            case 13:
-                return 'King';
-                break;
-            case 14:
-                return 'Ace';
-                break
+                case 11:
+                    return 'Jack';
+                    break;
+                case 12:
+                    return 'Queen';
+                    break;
+                case 13:
+                    return 'King';
+                    break;
+                case 14:
+                    return 'Ace';
+                    break
             }
         }
         return value.toString();
@@ -124,14 +124,21 @@ $(document).ready(function () {
             }
         }
     };
+
+    var warSetup = function (a, b) {
+        $('.myCard' + a).css('left', '300');
+        $('.oppCard' + b).css('left', '300');
+        setTimeout(function() {
+            warTime(a, b)
+        },2000);
+    };
+
     var warTime = function (f, g) {
         var oppCard = oppDeck[f];
         var myCard = myDeck[g];
-        $('.myCard').css('visibility', 'hidden');
-        $('.oppCard').css('visibility', 'hidden');
         $('.potCard').css('visibility', 'visible');
-        $('.oppCard' + (f)).css('background-position', oppCard.cardImage);
-        $('.myCard' + (g)).css('background-position', myCard.cardImage);
+        //$('.oppCard' + f).css('background-position', oppCard.cardImage);
+        //$('.myCard' + g).css('background-position', myCard.cardImage);
         if (f === 1 || g === 1) {
             oppDeck = oppDeck.concat(oppDeck.splice(0, 3));
             myDeck = myDeck.concat(myDeck.splice(0, 3));
@@ -143,9 +150,11 @@ $(document).ready(function () {
             myDeck = myDeck.concat(oppDeck.splice(0, 3));
             myDeck = myDeck.concat(myDeck.splice(0, 3));
         } else {
-            setTimeout(warTime(f - 1, g - 1), 500);
-        }
-    };
+            setTimeout(function() {
+                warTime(f - 1, g - 1)
+            }, 500)
+            }
+        };
 
     var oppWins = function () {
 
@@ -161,6 +170,10 @@ $(document).ready(function () {
         var myCard = myDeck[card];
         var c1 = oppDeck.length;
         var c2 = myDeck.length;
+        var card1 = card;
+        var card2 = Math.floor((Math.random() * 3) + 1);
+        $('.my-card' + card1).css('left', '113px').css('bottom', '0px');
+        $('.opp-card' + card2).css('left', '113px').css('top', '0px');
         if (war(oppCard.number, myCard.number) === "player1") {
             oppDeck.push(oppDeck.shift());
             oppDeck.push(myDeck.shift());
@@ -170,7 +183,16 @@ $(document).ready(function () {
             myDeck.push(myDeck.shift());
             shuffleDeck(myDeck);
         } else {
-            var c = c1 >= 4 && c2 >= 4 ? warTime(3, 3) : c1 < c2 ? oppWins("Ran out of Cards") : myWins("Ran out of Cards");
+            if (c1 >= 4 && c2 >= 4) {
+                setTimeout(function() {
+                    warSetup(card1, card2)
+                },500);
+            }
+            else if (c1 < c2) {
+                oppWins("Ran out of Cards");
+            } else {
+                myWins("Ran out of Cards");
+            }
         }
     };
 
@@ -184,9 +206,10 @@ $(document).ready(function () {
     $(".my-card-container").click(function () {
         var i = this.id;
         play(i);
-        advance();
-        resetWar();
+        //advance();
+        //resetWar();
     });
+
     $(".btn2").click(function () {
 
         resetWar();
@@ -196,10 +219,20 @@ $(document).ready(function () {
         myDeck = [];
         deck = [];
         newDeck(deck);
+        deck = shuffle(deck);
         deal(deck);
         $("#opp-card-count").html(oppDeck.length);
         $("#my-card-count").html(myDeck.length);
+        for (var i = 0; i <= 3; i++) {
+            myCard = myDeck[i];
+            $('.my-card' + i).css('background-position', myCard.cardImage);
+    }
     });
+
+//test section
+
+    //oppDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
+    //myDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
 
 
 });
