@@ -25,18 +25,18 @@ $(document).ready(function () {
     var convert_value_to_string = function (value) {
         if (value > 10) {
             switch (value) {
-                case 11:
-                    return 'Jack';
-                    break;
-                case 12:
-                    return 'Queen';
-                    break;
-                case 13:
-                    return 'King';
-                    break;
-                case 14:
-                    return 'Ace';
-                    break
+            case 11:
+                return 'Jack';
+                break;
+            case 12:
+                return 'Queen';
+                break;
+            case 13:
+                return 'King';
+                break;
+            case 14:
+                return 'Ace';
+                break
             }
         }
         return value.toString();
@@ -100,61 +100,79 @@ $(document).ready(function () {
 
     var advance = function () {
 
-        //take the top two cards and display them
-        if (oppDeck.length && myDeck.length) {
-            var oppCard = oppDeck[0];
-            var myCard = myDeck[0];
-            var winner = war(oppCard.number, myCard.number);
-            if (winner === 'player1') {
-                $("#opp-card").html(convert_value_to_string(oppCard.number) + " " + oppCard.suit + " Wins!");
-                $("#my-card").html(convert_value_to_string(myCard.number) + " " + myCard.suit);
-            } else if (winner === 'player2') {
-                $("#opp-card").html(convert_value_to_string(oppCard.number) + " " + oppCard.suit);
-                $("#my-card").html(convert_value_to_string(myCard.number) + " " + myCard.suit + " Wins!");
+        if (oppDeck.length || myDeck.length === 0) {
+            if (oppDeck.length === 0) {
+                myWins("Ran out of Cards");
             } else {
-                $("#opp-card").html(convert_value_to_string(oppCard.number) + " " + oppCard.suit + " WAR!!!!");
-                $("#my-card").html(convert_value_to_string(myCard.number) + " " + myCard.suit + " WAR!!!!");
+                oppWins("Ran out of Cards");
             }
+
+        } else {
             $("#opp-card-count").html(oppDeck.length);
             $("#my-card-count").html(myDeck.length);
-            for (var i = 1; i <= 3; i++) {
-                oppCard = oppDeck[i - 1];
-                myCard = myDeck[i - 1];
-                $('.my-card' + i).animate().css('background-position', myCard.cardImage);
-            }
+            $('.potCard').css('visibility', 'hidden');
+            $('.potCard').css('background-position', '-3536');
+        };
+
+        for (var i = 1; i <= 3; i++) {
+            oppCard = oppDeck[i - 1];
+            myCard = myDeck[i - 1];
+            $('.my-card' + i).css('background-position', myCard.cardImage);
         }
     };
 
+
     var warSetup = function (a, b) {
-        $('.myCard' + a).css('left', '300');
-        $('.oppCard' + b).css('left', '300');
-        setTimeout(function() {
-            warTime(a, b)
-        },2000);
+        setTimeout(function () {
+            $('.my-card' + a).css('left', '300');
+            $('.opp-card' + b).css('left', '300');
+        }, 500);
+
+
+        setTimeout(function () {
+            warTime(4, 4, 250)
+        }, 1000);
     };
 
-    var warTime = function (f, g) {
-        var oppCard = oppDeck[f];
-        var myCard = myDeck[g];
+    var warTime = function (f, g, h) {
+        var oppCard = oppDeck[f + 2];
+        var myCard = myDeck[g + 2];
+        if (war(oppCard.number, myCard.number) === "player1") {
+            oppDeck.concat(oppDeck.splice(3, 6));
+            oppDeck.concat(myDeck.splice(3, 6));
+            oppDeck.push(oppDeck.shift());
+            oppDeck.push(myDeck.shift());
+            shuffleDeck(oppDeck);
+        } else if (war(oppCard.number, myCard.number) === "player2") {
+            myDeck.concat(oppDeck.splice(3, 6));
+            myDeck.concat(myDeck.splice(3, 6));
+            myDeck.push(oppDeck.shift());
+            myDeck.push(myDeck.shift());
+            shuffleDeck(myDeck);
+        }
         $('.potCard').css('visibility', 'visible');
-        //$('.oppCard' + f).css('background-position', oppCard.cardImage);
-        //$('.myCard' + g).css('background-position', myCard.cardImage);
+        var delay = h + 250;
+        setTimeout(function () {
+            $('.oppCard' + f).css('background-position', oppCard.cardImage);
+            $('.myCard' + g).css('background-position', myCard.cardImage);
+
+        }, delay);
         if (f === 1 || g === 1) {
-            oppDeck = oppDeck.concat(oppDeck.splice(0, 3));
-            myDeck = myDeck.concat(myDeck.splice(0, 3));
+            oppDeck = oppDeck.concat(oppDeck.splice(0, 6));
+            myDeck = myDeck.concat(myDeck.splice(0, 6));
         } else if (war(oppCard.number, myCard.number) === "player1") {
             //Refactor for a card loop to show the correct amount of cards
-            oppDeck = oppDeck.concat(oppDeck.splice(0, 3));
-            oppDeck = oppDeck.concat(myDeck.splice(0, 3));
-        } else if (war(oppCard.number, myCard.number) === "player2") {
-            myDeck = myDeck.concat(oppDeck.splice(0, 3));
-            myDeck = myDeck.concat(myDeck.splice(0, 3));
+            oppDeck = oppDeck.concat(oppDeck.splice(0, 6));
+            oppDeck = oppDeck.concat(myDeck.splice(0, 6));
+        } else
+        if (war(oppCard.number, myCard.number) === "player2") {
+            myDeck = myDeck.concat(oppDeck.splice(0, 6));
+            myDeck = myDeck.concat(myDeck.splice(0, 6));
         } else {
-            setTimeout(function() {
-                warTime(f - 1, g - 1)
-            }, 500)
-            }
-        };
+            warTime(f - 1, g - 1, delay)
+        }
+    };
+
 
     var oppWins = function () {
 
@@ -183,12 +201,9 @@ $(document).ready(function () {
             myDeck.push(myDeck.shift());
             shuffleDeck(myDeck);
         } else {
-            if (c1 >= 4 && c2 >= 4) {
-                setTimeout(function() {
-                    warSetup(card1, card2)
-                },500);
-            }
-            else if (c1 < c2) {
+            if (c1 >= 6 && c2 >= 6) {
+                warSetup(card1, card2)
+            } else if (c1 < c2) {
                 oppWins("Ran out of Cards");
             } else {
                 myWins("Ran out of Cards");
@@ -196,43 +211,133 @@ $(document).ready(function () {
         }
     };
 
-    var resetWar = function () {
-        $('.potCard').css('visibility', 'hidden');
-        $('.potCard').css('background-position', '-3536');
-    };
 
 
     //this function (defined below) will continue to the next turn
     $(".my-card-container").click(function () {
         var i = this.id;
         play(i);
-        //advance();
-        //resetWar();
+         setTimeout(function () {
+            advance();
+         }, 3000);
+
     });
 
     $(".btn2").click(function () {
 
-        resetWar();
         $('.opp-card-container').css('background-position', '-3536');
         $('.my-card-container').css('background-position', '-3536');
-        oppDeck = [];
-        myDeck = [];
-        deck = [];
-        newDeck(deck);
-        deck = shuffle(deck);
-        deal(deck);
+        // oppDeck = [];
+        //myDeck = [];
+        //deck = [];
+        //newDeck(deck);
+        //deck = shuffle(deck);
+        //deal(deck);
         $("#opp-card-count").html(oppDeck.length);
         $("#my-card-count").html(myDeck.length);
         for (var i = 0; i <= 3; i++) {
             myCard = myDeck[i];
             $('.my-card' + i).css('background-position', myCard.cardImage);
-    }
+        }
     });
 
-//test section
+    //test section
 
-    //oppDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
-    //myDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
+    oppDeck = [{
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 4,
+        suit: "hearts",
+        cardImage: -2636
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+
+}];
+    myDeck = [{
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -2536
+}, {
+        number: 3,
+        suit: "hearts",
+        cardImage: -3536
+}];
 
 
 });
