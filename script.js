@@ -25,18 +25,18 @@ $(document).ready(function () {
     var convert_value_to_string = function (value) {
         if (value > 10) {
             switch (value) {
-                case 11:
-                    return 'Jack';
-                    break;
-                case 12:
-                    return 'Queen';
-                    break;
-                case 13:
-                    return 'King';
-                    break;
-                case 14:
-                    return 'Ace';
-                    break
+            case 11:
+                return 'Jack';
+                break;
+            case 12:
+                return 'Queen';
+                break;
+            case 13:
+                return 'King';
+                break;
+            case 14:
+                return 'Ace';
+                break
             }
         }
         return value.toString();
@@ -131,19 +131,46 @@ $(document).ready(function () {
         }
     };
 
+    var giveCards = function () {
+        $(".opp-card-container").css("background-position", "-3536");
+        $(".my-card-container").css("background-position", "-3536");
+        $(".potCard").css("background-position", "-3536");
 
-  /*  for (var i = 1; i <= 3; i++) {
-        oppCard = oppDeck[i - 1];
-        myCard = myDeck[i - 1];
-        $('.my-card' + i).css('background-position', myCard.cardImage);
+        for (var i = 1; i <= 4; i++) {
+            $(".opp-card" + i).css("left", "113").css("top", "50");
+            $(".my-card" + (i - 1)).css("left", "113").css("bottom", "50");
+            $(".oppCard" + i).css("left", "113").css("top", "50");
+            $(".myCard" + i).css("left", "113").css("bottom", "50");
+        };
+
+        setTimeout(function () {
+            $(".deck").css("left", "-75px").css("bottom", "-155px");
+            $(".deck1").css("left", "-75px").css("top", "-115px");
+            for (var i = 1; i <= 4; i++) {
+                $(".opp-card" + i).css("left", "-75").css("top", "-115px");
+                $(".my-card" + (i - 1)).css("left", "-75").css("bottom", "-155px");
+                $(".oppCard" + i).css("left", "-75").css("top", "-115px");
+                $(".myCard" + i).css("left", "-75").css("bottom", "-155px");
+
+            };
+        }, 500);
+
+        setTimeout(function () {
+            $(".potCard").css("visibility", "hidden");
+             for (var i = 0; i <= 3; i++) {
+                myCard = myDeck[i];
+                $('.my-card' + i).css('background-position', myCard.cardImage);
+            }
+            for (var i = 1; i <= 4; i++) {
+                $(".opp-card" + i).css("left", (38 + ((i - 1) * 75))).css("top", "-115px");
+                $(".my-card" + (i - 1)).css("left", (38 + ((i - 1) * 75))).css("bottom", "-155px");
+                $(".oppCard" + i).css("left", (-75 + (i * 75))).css("top", "0");
+                $(".myCard" + i).css("left", (-75 + (i * 75))).css("bottom", "0");
+
+            };
+        }, 1000);
     }
 
-    */
-
-    var reset = function (a, b) {
-        //do the reset to the deck and then the re-deal in jquery
-
-    };
 
     var warSetup = function (a, b) {
         var c = a; //myCard
@@ -175,11 +202,13 @@ $(document).ready(function () {
                 $("#my-card").html(convert_value_to_string(myCard.number) + " of " + myCard.suit);
                 oppDeck = oppDeck.concat(myDeck.splice(3, 4));
                 oppDeck.concat(myDeck.splice(r, 1));
-                shuffleDeck(oppDeck);
-                shuffleDeck(myDeck);
+                oppDeck = shuffleDeck(oppDeck);
+                myDeck = shuffleDeck(myDeck);
                 cardCount();
+                setTimeout(function () {
+                    giveCards();
+                }, 1200);
 
-                //reset(i, j);
             }, delay);
         } else if (war(oppCard.number, myCard.number) === "player2") {
             advance(i);
@@ -190,10 +219,14 @@ $(document).ready(function () {
                 $("#opp-card").html(convert_value_to_string(oppCard.number) + " of " + oppCard.suit);
                 $("#my-card").html(convert_value_to_string(myCard.number) + " of " + myCard.suit + " Wins!");
                 myDeck = myDeck.concat(oppDeck.splice(3, 4));
-                oppDeck.push(oppDeck.shift());
+                myDeck.push(oppDeck.shift());
+                oppDeck = shuffleDeck(oppDeck);
+                myDeck = shuffleDeck(myDeck);
 
                 cardCount();
-                //reset(i,j);
+                setTimeout(function () {
+                    giveCards();
+                }, 1200);
             }, delay);
 
         } else {
@@ -203,8 +236,8 @@ $(document).ready(function () {
 
             }, delay);
             if (f === 1 || g === 1) {
-                shuffleDeck(myDeck);
-                shuffleDeck(oppDeck);
+                myDeck = shuffleDeck(myDeck);
+                oppDeck = shuffleDeck(oppDeck);
             } else {
                 warTime(f - 1, g - 1, delay, i, t)
             }
@@ -219,8 +252,8 @@ $(document).ready(function () {
     var myWins = function () {
 
     };
-//compare the cards
-//give the winner both cards (at end of deck)
+    //compare the cards
+    //give the winner both cards (at end of deck)
     var play = function (card) {
         var oppCard = oppDeck[0];
         var myCard = myDeck[card];
@@ -228,18 +261,25 @@ $(document).ready(function () {
         var c2 = myDeck.length;
         var card1 = card;
         var card2 = Math.floor((Math.random() * 3) + 1);
+        $('.opp-card' + card2).css('background-position', oppCard.cardImage);
         $('.my-card' + card1).css('left', '113px').css('bottom', '0px');
         $('.opp-card' + card2).css('left', '113px').css('top', '0px');
         if (war(oppCard.number, myCard.number) === "player1") {
             oppDeck.concat(myDeck.splice(card, 1));
-            shuffleDeck(myDeck);
-            shuffleDeck(oppDeck);
+            myDeck = shuffleDeck(myDeck);
+            oppDeck = shuffleDeck(oppDeck);
             cardCount();
+            setTimeout(function () {
+                giveCards();
+            }, 1200);
         } else if (war(oppCard.number, myCard.number) === "player2") {
             myDeck.push(oppDeck.shift());
-            shuffleDeck(myDeck);
-            shuffleDeck(oppDeck);
+            myDeck = shuffleDeck(myDeck);
+            oppDeck = shuffleDeck(oppDeck);
             cardCount();
+            setTimeout(function () {
+                giveCards();
+            }, 1200);
         } else {
             if (c1 >= 6 && c2 >= 6) {
                 warSetup(card1, card2)
@@ -252,7 +292,7 @@ $(document).ready(function () {
     };
 
 
-//this function (defined below) will continue to the next turn
+    //this function (defined below) will continue to the next turn
     $(".my-card-container").click(function () {
         var i = this.id;
         advance(i);
@@ -262,132 +302,165 @@ $(document).ready(function () {
     });
 
     $(".btn2").click(function () {
+        $(".opp-card-container").css("background-position", "-3536");
+        $(".my-card-container").css("background-position", "-3536");
+        $(".deck").css("left", "113").css("bottom", "50");
+        $(".deck1").css("left", "113").css("top", "50");
+        for (var i = 1; i <= 4; i++) {
+            $(".opp-card" + i).css("left", "113").css("top", "50");
+            $(".my-card" + (i - 1)).css("left", "113").css("bottom", "50");
+            $(".oppCard" + i).css("left", "113").css("top", "50");
+            $(".myCard" + i).css("left", "113").css("bottom", "50");
+        };
 
-        $('.opp-card-container').css('background-position', '-3536');
-        $('.my-card-container').css('background-position', '-3536');
-        // oppDeck = [];
-        //myDeck = [];
-        //deck = [];
-        //newDeck(deck);
-        //deck = shuffle(deck);
-        //deal(deck);
-        $("#opp-card-count").html(oppDeck.length);
-        $("#my-card-count").html(myDeck.length);
-        for (var i = 0; i <= 3; i++) {
-            myCard = myDeck[i];
-            $('.my-card' + i).css('background-position', myCard.cardImage);
-        }
+        setTimeout(function () {
+            $(".deck").css("left", "-75px").css("bottom", "-155px");
+            $(".deck1").css("left", "-75px").css("top", "-115px");
+            for (var i = 1; i <= 4; i++) {
+                $(".opp-card" + i).css("left", "-75").css("top", "-115px");
+                $(".my-card" + (i - 1)).css("left", "-75").css("bottom", "-155px");
+                $(".oppCard" + i).css("left", "-75").css("top", "-115px");
+                $(".myCard" + i).css("left", "-75").css("bottom", "-155px");
+
+            };
+        }, 500);
+
+        setTimeout(function () {
+            $(".potCard").css("visibility", "hidden");
+
+            for (var i = 1; i <= 4; i++) {
+                $(".opp-card" + i).css("left", (38 + ((i - 1) * 75))).css("top", "-115px");
+                $(".my-card" + (i - 1)).css("left", (38 + ((i - 1) * 75))).css("bottom", "-155px");
+                $(".oppCard" + i).css("left", (-75 + (i * 75))).css("top", "0");
+                $(".myCard" + i).css("left", (-75 + (i * 75))).css("bottom", "0");
+
+            };
+        }, 1000);
+
+        setTimeout(function () {
+            oppDeck = [];
+            myDeck = [];
+            deck = [];
+            newDeck(deck);
+            deck = shuffle(deck);
+            deal(deck);
+            $("#opp-card-count").html(oppDeck.length);
+            $("#my-card-count").html(myDeck.length);
+            for (var i = 0; i <= 3; i++) {
+                myCard = myDeck[i];
+                $('.my-card' + i).css('background-position', myCard.cardImage);
+            }
+
+        }, 1200);
+
     });
+    //test section
 
-//test section
-/*
     oppDeck = [{
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
-        number: 4,
+        }, {
+        number: 2,
         suit: "hearts",
         cardImage: -2636
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
 
-    }];
+        }];
 
     myDeck = [{
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 0
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 1
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 2
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 3
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 4
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
-        cardImage: -2536
-        ,
+        cardImage: -2536,
         n: 5
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 6
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536,
         n: 7
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
-        cardImage: -2536
-        ,
+        cardImage: -2536,
         n: 8
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -2536
-    }, {
+        }, {
         number: 3,
         suit: "hearts",
         cardImage: -3536
-    }];
-*/
+        }];
+
 
 });
