@@ -44,7 +44,7 @@ $(document).ready(function () {
 
     var deck = [];
     var newDeck = function (deck) {
-        var suits = ['hearts', 'diamonds', 'spades', 'clubs'];
+        var suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
         for (var i = 0; i < suits.length; i++) {
             var suit = suits[i];
             for (var j = 1; j < 14; j++) {
@@ -98,22 +98,22 @@ $(document).ready(function () {
         }
     };
 
-    var advance = function () {
+    var advance = function (i) {
 
         //take the top two cards and display them
         if (oppDeck.length && myDeck.length) {
             var oppCard = oppDeck[0];
-            var myCard = myDeck[0];
+            var myCard = myDeck[i];
             var winner = war(oppCard.number, myCard.number);
             if (winner === 'player1') {
-                $("#opp-card").html(convert_value_to_string(oppCard.number) + " " + oppCard.suit + " Wins!");
-                $("#my-card").html(convert_value_to_string(myCard.number) + " " + myCard.suit);
+                $("#opp-card").html(convert_value_to_string(oppCard.number) + " of " + oppCard.suit + " Wins!");
+                $("#my-card").html(convert_value_to_string(myCard.number) + " of " + myCard.suit);
             } else if (winner === 'player2') {
-                $("#opp-card").html(convert_value_to_string(oppCard.number) + " " + oppCard.suit);
-                $("#my-card").html(convert_value_to_string(myCard.number) + " " + myCard.suit + " Wins!");
+                $("#opp-card").html(convert_value_to_string(oppCard.number) + " of " + oppCard.suit);
+                $("#my-card").html(convert_value_to_string(myCard.number) + " of " + myCard.suit + " Wins!");
             } else {
-                $("#opp-card").html(convert_value_to_string(oppCard.number) + " " + oppCard.suit + " WAR!!!!");
-                $("#my-card").html(convert_value_to_string(myCard.number) + " " + myCard.suit + " WAR!!!!");
+                $("#opp-card").html(convert_value_to_string(oppCard.number) + " of " + oppCard.suit + " WAR!!!!");
+                $("#my-card").html(convert_value_to_string(myCard.number) + " of " + myCard.suit + " WAR!!!!");
             }
             $("#opp-card-count").html(oppDeck.length);
             $("#my-card-count").html(myDeck.length);
@@ -206,7 +206,7 @@ $(document).ready(function () {
     $(".my-card-container").click(function () {
         var i = this.id;
         play(i);
-        //advance();
+        //advance(i);
         //resetWar();
     });
 
@@ -231,8 +231,8 @@ $(document).ready(function () {
 
 //test section
 
-    //oppDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
-    //myDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
+    oppDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
+    myDeck = [{number: 3}, {number: 3}, {number: 3},{number: 3},{number: 3},{number: 3}];
 
 
 });

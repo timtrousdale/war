@@ -33,6 +33,31 @@ h1.pot {
     font-size: 4em;
     text-align: center;
     color: rgba(255, 255, 255, 1);
+    padding: 0;
+    margin-top: 0;
+
+}
+.pot {
+    position: absolute;
+    top: 300;
+}
+
+#opp-card, #my-card {
+    font-size: 2em;
+    text-align: center;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+
+}
+
+#opp-card {
+    top: 100px;
+}
+
+#my-card {
+    top: 450px;
+}
+
 }
 
 h2 {
@@ -243,9 +268,6 @@ h4 {
     color: rgba(255, 255, 255, 1);
 }
 
-.pot {
-    position: absolute;
-}
 
 .btn {
     margin: 0 auto;
