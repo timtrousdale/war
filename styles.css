@@ -39,7 +39,7 @@ h1.pot {
 }
 .pot {
     position: absolute;
-    top: 300;
+    top: 280;
 }
 
 #opp-card, #my-card {
@@ -51,11 +51,11 @@ h1.pot {
 }
 
 #opp-card {
-    top: 100px;
+    top: 63px;
 }
 
 #my-card {
-    top: 450px;
+    top: 430px;
 }
 
 }
@@ -88,7 +88,6 @@ h4 {
     height: 150px;
 }
 
-.pot-block {}
 
 .my-card-block {
     padding-top: 30px;
@@ -178,6 +177,7 @@ h4 {
     box-shadow: 2px 10px 25px #888888;
     background-image: url(images/CardDeck.gif);
     background-position: -3536;
+    transition: visibility .2 ease-in 0s;
 }
 
 .deck,
@@ -190,32 +190,38 @@ h4 {
     visibility: visible;
     background-position: -3536;
     position: absolute;
-    left: 113px;
-    top: 50px;
+}
+.deck {
+    left: -75px;
+    bottom: -155px;
+}
+.deck1 {
+    left: -75;
+    top: -115px;
 }
 
 .oppCard1 {
     background-position: -3536;
     position: absolute;
-    left: 225px;
+    left: 0px;
 }
 
 .oppCard2 {
     background-position: -3536;
     position: absolute;
-    left: 150px;
+    left: 75px;
 }
 
 .oppCard3 {
     background-position: -3536;
     position: absolute;
-    left: 75px;
+    left: 150px;
 }
 
 .oppCard4 {
     background-position: -3536;
     position: absolute;
-    left: 0px;
+    left: 225px;
 }
 
 .myCard1 {
